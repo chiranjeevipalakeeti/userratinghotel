@@ -5,10 +5,7 @@ import com.app.plkt.dto.UserDto;
 import com.app.plkt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -25,5 +22,15 @@ public class UserController {
         response.setData(dto);
         return  ResponseEntity.ok().body(response);
 
+    }
+
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<ApiResponse<UserDto>> getUser(@PathVariable Long userId)
+    {
+        ApiResponse<UserDto> response= new ApiResponse<>();
+        UserDto userDto= userService.getUserById(userId);
+        response.setMessage("User Created");
+        response.setData(userDto);
+        return  ResponseEntity.ok().body(response);
     }
 }
